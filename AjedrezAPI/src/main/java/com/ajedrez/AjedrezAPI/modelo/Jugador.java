@@ -2,14 +2,14 @@ package com.ajedrez.AjedrezAPI.modelo;
 
 public class Jugador {
 
-    private int jugadorId;
+    private Long jugadorId;
     private String nombreCompleto;
     private char genero;
     private int edad;
     private int elo;
     private String nacionalidad;
 
-    public Jugador(int jugadorId, String nombreCompleto, char genero, int edad, int elo, String nacionalidad) {
+    public Jugador(Long jugadorId, String nombreCompleto, char genero, int edad, int elo, String nacionalidad) {
         this.jugadorId = jugadorId;
         this.nombreCompleto = nombreCompleto;
         this.genero = genero;
@@ -21,10 +21,10 @@ public class Jugador {
     public Jugador(){
     }
 
-    public int getJugadorId() {
+    public Long getJugadorId() {
         return jugadorId;
     }
-    public void setJugadorId(int jugadorId) {
+    public void setJugadorId(Long jugadorId) {
         this.jugadorId = jugadorId;
     }
 

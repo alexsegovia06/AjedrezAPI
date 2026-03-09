@@ -2,17 +2,17 @@ package com.ajedrez.AjedrezAPI.modelo;
 
 public class Partida {
 
-    private int partidaId;
+    private Long partidaId;
     private String ritmo;
-    private int jugadorBlancasId;
-    private int jugadorNegrasId;
+    private Long jugadorBlancasId;
+    private Long jugadorNegrasId;
     private String apertura;
     private int numeroJugadas;
     private String estado;
     private String resultado;
     private int tiempoTotal;
 
-    public Partida(int partidaId, String ritmo, int jugadorBlancasId, int jugadorNegrasId, String apertura, int numeroJugadas, String estado, int tiempoTotal) {
+    public Partida(Long partidaId, String ritmo, Long jugadorBlancasId, Long jugadorNegrasId, String apertura, int numeroJugadas, String estado, int tiempoTotal) {
         this.partidaId = partidaId;
         this.ritmo = ritmo;
         this.jugadorBlancasId = jugadorBlancasId;
@@ -41,7 +41,7 @@ public class Partida {
         return numeroJugadas;
     }
 
-    public int getPartidaId() {
+    public Long getPartidaId() {
         return partidaId;
     }
 
@@ -49,11 +49,11 @@ public class Partida {
         return ritmo;
     }
 
-    public int getJugadorBlancasId() {
+    public Long getJugadorBlancasId() {
         return jugadorBlancasId;
     }
 
-    public int getJugadorNegrasId() {
+    public Long getJugadorNegrasId() {
         return jugadorNegrasId;
     }
 
@@ -61,7 +61,7 @@ public class Partida {
         return apertura;
     }
 
-    public void setPartidaId(int partidaId) {
+    public void setPartidaId(Long partidaId) {
         this.partidaId = partidaId;
     }
 
@@ -69,11 +69,11 @@ public class Partida {
         this.ritmo = ritmo;
     }
 
-    public void setJugadorBlancasId(int jugadorBlancasId) {
+    public void setJugadorBlancasId(Long jugadorBlancasId) {
         this.jugadorBlancasId = jugadorBlancasId;
     }
 
-    public void setJugadorNegrasId(int jugadorNegrasId) {
+    public void setJugadorNegrasId(Long jugadorNegrasId) {
         this.jugadorNegrasId = jugadorNegrasId;
     }
 
