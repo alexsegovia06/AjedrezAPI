@@ -57,6 +57,11 @@ public class PartidaControlador {
         return new ResponseEntity<>(actualizado, HttpStatus.OK);
     }
 
-
+    /*finalizar
+    @PutMapping("{partidaId}/finalizar")
+    public ResponseEntity<Partida> finalizarPartida(@PathVariable Long partidaId, @RequestBody FinalizarPartidaRequest request) {
+        Partida partida = partidaServicio.finalizarPartida(partidaId, request.getResultado(), request.getNumeroJugadas(), request.getTiempoTotal());
+        return new ResponseEntity<>(partida, HttpStatus.OK);
+    }*/
 
 }
