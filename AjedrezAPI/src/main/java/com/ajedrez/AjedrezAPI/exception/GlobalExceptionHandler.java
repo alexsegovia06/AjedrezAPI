@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    //para cuando no se encuentra (nulo o vacio)
+    //para cuando no se encuentra (nulo o vacio  )
     @ExceptionHandler(NotFound.class)
     public ResponseEntity<String> handleNotFound(NotFound ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
