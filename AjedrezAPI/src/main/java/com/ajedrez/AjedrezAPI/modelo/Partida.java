@@ -23,8 +23,6 @@ public class Partida {
         this.tiempoTotal = tiempoTotal;
     }
 
-    public Partida(){}
-
     public int getTiempoTotal() {
         return tiempoTotal;
     }

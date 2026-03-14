@@ -29,9 +29,7 @@ public class JugadorControlador {
     //obtener especifico
     @GetMapping("{jugadorId}")
     public ResponseEntity<Jugador> getJugador(@PathVariable Long jugadorId) {
-        Jugador jugador = jugadorServicio.getJugador(jugadorId);
-        if (jugador == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        return new ResponseEntity<>(jugador, HttpStatus.OK);
+        return ResponseEntity.ok(jugadorServicio.getJugador(jugadorId));
     }
 
 
@@ -43,18 +41,15 @@ public class JugadorControlador {
 
     //eliminar
     @DeleteMapping("{jugadorId}")
-    public ResponseEntity<String> deleteArtista(@PathVariable Long jugadorId) {
-        boolean eliminado = jugadorServicio.deleteJugador(jugadorId);
-        if (!eliminado) return new ResponseEntity<>("No se encontró al jugador", HttpStatus.NOT_FOUND);
-        return new ResponseEntity<>("Se elimino al jugador", HttpStatus.NO_CONTENT);
+    public ResponseEntity<Void> deleteJugador(@PathVariable Long jugadorId) {
+        jugadorServicio.deleteJugador(jugadorId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     //actualizar
     @PutMapping("{jugadorId}")
     public ResponseEntity<Jugador> actualizarJugador(@PathVariable Long jugadorId, @RequestBody Jugador jugador) {
-        Jugador actualizado = jugadorServicio.actualizarJugador(jugadorId, jugador);
-        if (actualizado == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        return new ResponseEntity<>(actualizado, HttpStatus.OK);
+        return new ResponseEntity<>(jugadorServicio.actualizarJugador(jugadorId, jugador), HttpStatus.OK);
     }
 
 }

@@ -18,9 +18,6 @@ public class Jugador {
         this.nacionalidad = nacionalidad;
     }
 
-    public Jugador(){
-    }
-
     public Long getJugadorId() {
         return jugadorId;
     }

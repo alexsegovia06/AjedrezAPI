@@ -37,10 +37,16 @@ public class PartidaRepositorio {
 
     //borrar un la partida
     public boolean deletePartida(Long id) {
-        return partidas.removeIf(partida -> partida.getPartidaId().equals(id));
+        for (int i = 0; i < partidas.size(); i++) {
+            if (partidas.get(i).getPartidaId().equals(id)) {
+                partidas.remove(i);
+                return true;
+            }
+        }
+        return false;
     }
 
-    //con un ciclo se busca la partida por el nombre para cambiarle los datos
+    //con un ciclo se busca la partida por el nombre para cambiarle los datos y finalizar la partida
     public Partida actualizarPartida(Long id, Partida nuevaPartida) {
         for(Partida partida : partidas) {
             if(partida.getPartidaId().equals(id)) {
@@ -52,6 +58,19 @@ public class PartidaRepositorio {
                 partida.setResultado(nuevaPartida.getResultado());
                 partida.setRitmo(nuevaPartida.getRitmo());
                 partida.setTiempoTotal(nuevaPartida.getTiempoTotal());
+                return partida;
+            }
+        }
+        return null;
+    }
+
+    public Partida finalizarPartida(Long id, Partida partidaFinalizada) {
+        for (Partida partida : partidas) {
+            if (partida.getPartidaId().equals(id)) {
+                partida.setResultado(partidaFinalizada.getResultado());
+                partida.setNumeroJugadas(partidaFinalizada.getNumeroJugadas());
+                partida.setTiempoTotal(partidaFinalizada.getTiempoTotal());
+                partida.setEstado("Finalizada");
                 return partida;
             }
         }

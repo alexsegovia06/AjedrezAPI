@@ -18,9 +18,7 @@ public class PartidaControlador {
         this.partidaServicio = partidaServicio;
     }
 
-    //METODOS PARA PARTIDAS
-
-    //obtener
+    //obtener (extra)
     @GetMapping
     public ResponseEntity<List<Partida>> getPartidas() {
         return new ResponseEntity<>(partidaServicio.obtenerPartidas(), HttpStatus.OK);
@@ -29,9 +27,7 @@ public class PartidaControlador {
     //obtener especifico
     @GetMapping("{partidaId}")
     public ResponseEntity<Partida> getPartida(@PathVariable Long partidaId) {
-        Partida partida = partidaServicio.getPartida(partidaId);
-        if (partida == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        return new ResponseEntity<>(partida, HttpStatus.OK);
+        return new ResponseEntity<>(partidaServicio.getPartida(partidaId), HttpStatus.OK);
     }
 
 
@@ -42,26 +38,21 @@ public class PartidaControlador {
     }
 
     //eliminar
-    @DeleteMapping("{jugadorId}")
-    public ResponseEntity<String> deletePartida(@PathVariable Long partidaId) {
-        boolean eliminado = partidaServicio.deletePartida(partidaId);
-        if (!eliminado) return new ResponseEntity<>("No se encontró la partida", HttpStatus.NOT_FOUND);
-        return new ResponseEntity<>("Se elimino la partida del sistema", HttpStatus.NO_CONTENT);
+    @DeleteMapping("{partidaId}")
+    public ResponseEntity<Void> deletePartida(@PathVariable Long partidaId) {
+        partidaServicio.deletePartida(partidaId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    //actualizar
-    @PutMapping("{jugadorId}")
+    //actualizar-finalizar
+    @PutMapping("{partidaId}")
     public ResponseEntity<Partida> actualizarPartida(@PathVariable Long partidaId, @RequestBody Partida partida) {
-        Partida actualizado = partidaServicio.actualizarPartida(partidaId, partida);
-        if (actualizado == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        return new ResponseEntity<>(actualizado, HttpStatus.OK);
+        return new ResponseEntity<>(partidaServicio.actualizarPartida(partidaId, partida), HttpStatus.OK);
     }
 
-    /*finalizar
     @PutMapping("{partidaId}/finalizar")
-    public ResponseEntity<Partida> finalizarPartida(@PathVariable Long partidaId, @RequestBody FinalizarPartidaRequest request) {
-        Partida partida = partidaServicio.finalizarPartida(partidaId, request.getResultado(), request.getNumeroJugadas(), request.getTiempoTotal());
-        return new ResponseEntity<>(partida, HttpStatus.OK);
-    }*/
+    public ResponseEntity<Partida> finalizarPartida(@PathVariable Long partidaId, @RequestBody Partida partida) {
+        return new ResponseEntity<>(partidaServicio.finalizarPartida(partidaId, partida.getResultado(), partida.getNumeroJugadas(), partida.getTiempoTotal()), HttpStatus.OK);
+    }
 
 }

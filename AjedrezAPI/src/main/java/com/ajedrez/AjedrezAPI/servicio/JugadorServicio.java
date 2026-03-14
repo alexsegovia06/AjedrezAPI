@@ -4,7 +4,9 @@ import com.ajedrez.AjedrezAPI.exception.Conflicto;
 import com.ajedrez.AjedrezAPI.exception.NotFound;
 import com.ajedrez.AjedrezAPI.exception.Validacion;
 import com.ajedrez.AjedrezAPI.modelo.Jugador;
+import com.ajedrez.AjedrezAPI.modelo.Partida;
 import com.ajedrez.AjedrezAPI.repositorio.JugadorRepositorio;
+import com.ajedrez.AjedrezAPI.repositorio.PartidaRepositorio;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,9 +15,11 @@ import java.util.List;
 public class JugadorServicio {
 
     private final JugadorRepositorio jugadorRepositorio;
+    private final PartidaRepositorio partidaRepositorio;
 
-    public JugadorServicio(JugadorRepositorio jugadorRepositorio) {
+    public JugadorServicio(JugadorRepositorio jugadorRepositorio, PartidaRepositorio partidaRepositorio) {
         this.jugadorRepositorio = jugadorRepositorio;
+        this.partidaRepositorio = partidaRepositorio;
     }
 
     //JUGADORES
@@ -47,14 +51,22 @@ public class JugadorServicio {
     }
 
     public boolean deleteJugador(Long id) {
-        //validar que el jugador no sea nulo
         if (jugadorRepositorio.getJugador(id) == null) {
             throw new NotFound("No se encontró al jugador con id: " + id);
         }
-        //validar que no haya partidas activas
+        for (Partida partida : partidaRepositorio.obtenerPartidas()) {
+            boolean esJugadorDeLaPartida = partida.getJugadorBlancasId().equals(id)
+                    || partida.getJugadorNegrasId().equals(id);
+            boolean partidaActiva = partida.getEstado().equals("Pendiente")
+                    || partida.getEstado().equals("En curso");
+
+            if (esJugadorDeLaPartida && partidaActiva) {
+                throw new Conflicto("El jugador tiene partidas activas y no puede eliminarse");
+            }
+        }
+
         return jugadorRepositorio.deleteJugador(id);
     }
-
     public Jugador actualizarJugador(Long id, Jugador jugador) {
         //validar que el jugador no sea nulo
         if (jugadorRepositorio.getJugador(id) == null) {

@@ -37,7 +37,13 @@ public class JugadorRepositorio {
 
     //borrar un jugador
     public boolean deleteJugador(Long id) {
-        return jugadores.removeIf(jugador -> jugador.getJugadorId().equals(id));
+        for (int i = 0; i < jugadores.size(); i++) {
+            if (jugadores.get(i).getJugadorId().equals(id)) {
+                jugadores.remove(i);
+                return true;
+            }
+        }
+        return false;
     }
 
     //con un ciclo se busca al jugador por el nombre para cambiarle los datos

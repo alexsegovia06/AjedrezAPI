@@ -17,8 +17,8 @@ public class PartidaServicio {
     private final PartidaRepositorio partidaRepositorio;
 
     public PartidaServicio(PartidaRepositorio partidaRepositorio, JugadorRepositorio jugadorRepositorio) {
-        this.partidaRepositorio = new PartidaRepositorio();
-        this.jugadorRepositorio = new JugadorRepositorio();
+        this.partidaRepositorio = partidaRepositorio;
+        this.jugadorRepositorio = jugadorRepositorio;
 
     }
 
@@ -49,7 +49,7 @@ public class PartidaServicio {
             throw new Validacion("Ritmo inválido. Debe ser: Bala, Blitz, Rapid o Classic");
         }
 
-        partida.setEstado("Pendiente");
+        partida.setEstado("En curso");
         return partidaRepositorio.postPartida(partida);
     }
 
@@ -91,7 +91,8 @@ public class PartidaServicio {
         partida.setNumeroJugadas(numeroJugadas);
         partida.setTiempoTotal(tiempoTotal);
         partida.setEstado("Finalizada");
-        return partida;
+        return partidaRepositorio.finalizarPartida(id, partida);
+
     }
 
 }
